@@ -6,6 +6,10 @@ function getSignUp (req,res) {
     res.render("sign-up-form", {errors : null});
 }
 
+function getLogin (req, res) {
+    res.render("login");
+}
+
 async function postSignUp (req,res) {
 
     const errors = validationResult(req);
@@ -32,5 +36,6 @@ async function getUserList(req, res) {
 module.exports = {
     getSignUp,
     getUserList,
+    getLogin,
     postSignUp
 }

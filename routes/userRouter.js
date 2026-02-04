@@ -5,7 +5,9 @@ const registerValidation = require("../validators/registerValidation");
 
 const userRouter = Router();
 
-userRouter.get("/", userController.getUserList);
+userRouter.get("/",userController.getLogin)
+
+userRouter.get("/home", userController.getUserList);
 
 userRouter.get("/sign-up",userController.getSignUp);
 
