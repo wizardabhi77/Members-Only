@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <form action="/sign-up" method="POST">
+            <label for="firstname">FIRSTNAME:</label>
+            <input type="text" name="firstname" id="firstname" required><br>
+            <label for="lastname">LASTNAME:</label>
+            <input type="text" name="lastname" id="lastname" required><br>
+            <label for="username">USERNAME:</label>
+            <input type="text" name="username" id="username" required><br>
+            <label for="password">PASSWORD:</label>
+            <input type="password" name="password" id="password"><br>
+            <label for="confirm-password">CONFIRM PASSWORD:</label>
+            <input type="password" name="confirm-password" id="confirm-password" required><br>
+            <button type="submit">SUBMIT</button>
+        </form>
+        <% if (errors) { %>
+        <ul>
+            <% errors.forEach(err => { %>
+            <li><%= err.msg %></li>
+            <% }) %>
+        </ul>
+        <% } %>
+
+    </body>
+</html>
