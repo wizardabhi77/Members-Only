@@ -7,12 +7,17 @@ async function createUser(firstname,lastname, username, password) {
 }
 
 async function getAllUsers(){
-    const { rows } = await pool.query("select username from users");
+    const { rows } = await pool.query("select * from users");
     return rows;
 }
 
 async function getAllMembers(){
     const { rows } = await pool.query("select username from users where membership = 'member'");
+    return rows;
+}
+
+async function getAllMessages(){
+    const { rows } = await pool.query("select * from messages");
     return rows;
 }
 
@@ -27,17 +32,36 @@ async function findUserById(id){
 }
 
 async function setMemberShip(id) {
-    console.log(id);
-   const result = await pool.query("update users set membership = 'member' where id = $1",[id]);
-   console.log(result.rows);
+    
+   await pool.query("update users set membership = 'member' where id = $1",[id]);
+   
 }
 
+async function setAdmin(id) {
+    await pool.query("update users set membership = 'admin' where id = $1",[id]);
+}
+    
+
+
+async function postMessages(title, message, uid) {
+    
+    const added = new Date();
+    await pool.query("insert into messages (title, text, added, uid) values ( $1, $2, $3, $4)", [title, message, added, uid]);
+}
+
+async function deleteMessage(mid) {
+    await pool.query("delete from messages where mid = $1",[mid]);
+}
 
 module.exports = {
     createUser,
     getAllUsers,
     getAllMembers,
+    getAllMessages,
     findUser,
     findUserById,
-    setMemberShip
+    setMemberShip,
+    setAdmin,
+    postMessages,
+    deleteMessage
 }

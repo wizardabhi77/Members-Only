@@ -25,9 +25,16 @@ userRouter.get("/sign-up", userController.getSignUp);
 
 userRouter.get("/members", isAuthenticated, userController.getMembers);
 
+userRouter.get("/new", isAuthenticated, userController.getMessages);
+
+userRouter.get("/:mid/delete", isAuthenticated, userController.deleteMessages);
+
+
 
 
 userRouter.post("/sign-up",registerValidation,userController.postSignUp);
 userRouter.post("/members", userController.postMembers);
+userRouter.post("/new",userController.postMessages);
+userRouter.post("/logout",userController.logout);
 
 module.exports = userRouter;

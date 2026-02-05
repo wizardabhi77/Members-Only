@@ -1,12 +1,13 @@
 <html>
     <body>
+        <a href="/new">Create a new message</a>
         <h1>Users List</h1>
         <ul>
             <% users.forEach((user) => {%> 
             <li><h2><%= user.username %></h2></li>
             <% }) %>
         </ul>
-        <% if(membership === 'member'){ %>
+        <% if(membership === 'member' || membership == 'admin'){ %>
             <p>CONGRATULATIONS! YOU ARE A MEMBER!</p>
         
         <h1>Members List</h1>
@@ -15,8 +16,41 @@
             <li><h2><%= member.username %></h2></li>
             <% }) %>
         </ul>
+        
         <% } %>
+
         <a href="/members">Join the Elite Club!</a>
-        <a href="">LOG OUT</a>
+        
+        <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+
+
+        <div class="message-board">
+            <h1>MESSAGE BOARD</h1>
+            <ul>
+                <% messages.forEach((message) => { 
+                    
+                    let user = users.find((user) => user.id === message.uid); 
+                    %>
+
+                    <li>
+                        <h2><%= message.title %></h2> <br>
+                        <p><%= message.text %></p>
+                    <% if(membership === 'member' || membership == 'admin'){ %>
+                        SENT BY:<h3><%= user.username %></h3>
+                        ADDED ON: <%= message.added %>
+
+                        <% } %>
+                        <br>
+                    <% if(membership === 'admin') { %>
+                        <a href="/<%= message.mid %>/delete">DELETE</a>
+
+                    <% } %>
+                    </li>
+
+               <% }) %>
+            </ul>
+        </div>
     </body>
 </html>

@@ -15,6 +15,10 @@ function getMembers (req, res) {
     res.render("members");
 }
 
+function getMessages (req, res) {
+    res.render("message-form");
+}
+
 async function postSignUp (req,res) {
 
     const errors = validationResult(req);
@@ -35,10 +39,18 @@ async function postSignUp (req,res) {
 async function getUserList(req, res) {
 
     const users = await db.getAllUsers();
+    
     const members = await db.getAllMembers();
+    const messages = await db.getAllMessages();
+    
     const membership = req.user.membership;
     
-    res.render("index", {users: users, membership : membership, members : members});
+    res.render("index", {
+        users: users, 
+        membership : membership, 
+        members : members, 
+        messages : messages
+    });
 }
 
 async function postMembers(req, res) {
@@ -48,9 +60,15 @@ async function postMembers(req, res) {
     const code = req.body.secret;
    
     if(code === process.env.PASSCODE){
-        console.log("true");
+        
         await db.setMemberShip(id);
         req.user.membership = 'member';
+        return res.redirect("/home");
+    }
+    else if(code === 'dattaisgay'){
+        
+        await db.setAdmin(id);
+        req.user.membership = 'admin';
         return res.redirect("/home");
     }
     
@@ -58,11 +76,48 @@ async function postMembers(req, res) {
 
 }
 
+async function postMessages(req, res) {
+    
+    const uid = req.user.id;
+    
+    const { title, message } = req.body;
+    
+    await db.postMessages(title, message, uid);
+
+    res.redirect("/home");
+}
+
+async function deleteMessages (req, res) {
+
+    const mid = req.params.mid;
+    
+
+    await db.deleteMessage(mid);
+
+    res.redirect("/home");
+}
+
+async function logout (req, res, next) {
+
+    req.logout(function (error) {
+        if(error){
+            return next(err);
+        }
+        res.redirect("/");
+    })
+}
+
+
+
 module.exports = {
     getSignUp,
     getUserList,
     getLogin,
     getMembers,
+    getMessages,
     postMembers,
-    postSignUp
+    postMessages,
+    deleteMessages,
+    postSignUp,
+    logout
 }
