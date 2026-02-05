@@ -1,6 +1,14 @@
 <html>
+    <head>
+        <title>Members Only</title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+    </head>
     <body>
-        <a href="/new">Create a new message</a>
+        <div class="header">
+            <p>Welcome <%= currUser.username %></p>
+            <a href="/new">Create a new message</a>
+        </div>
+        <div class="sidebar">
         <h1>Users List</h1>
         <ul>
             <% users.forEach((user) => {%> 
@@ -20,11 +28,11 @@
         <% } %>
 
         <a href="/members">Join the Elite Club!</a>
-        
+
         <form action="/logout" method="POST">
             <button type="submit">Logout</button>
         </form>
-
+        </div>
 
         <div class="message-board">
             <h1>MESSAGE BOARD</h1>
@@ -34,7 +42,7 @@
                     let user = users.find((user) => user.id === message.uid); 
                     %>
 
-                    <li>
+                    <li class="card">
                         <h2><%= message.title %></h2> <br>
                         <p><%= message.text %></p>
                     <% if(membership === 'member' || membership == 'admin'){ %>

@@ -39,7 +39,7 @@ async function postSignUp (req,res) {
 async function getUserList(req, res) {
 
     const users = await db.getAllUsers();
-    
+    const currUser = req.user;
     const members = await db.getAllMembers();
     const messages = await db.getAllMessages();
     
@@ -47,6 +47,7 @@ async function getUserList(req, res) {
     
     res.render("index", {
         users: users, 
+        currUser: currUser,
         membership : membership, 
         members : members, 
         messages : messages

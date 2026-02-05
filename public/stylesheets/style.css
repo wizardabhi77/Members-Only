@@ -1,0 +1,61 @@
+
+body {
+    border: 5px blue groove;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 6fr;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar {
+    border : 10px black inset;
+    grid-column: 1 / 2;
+    grid-row: 2/3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-board {
+    border: 10px wheat groove;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: cadetblue;
+    border-radius: 5%;
+    box-shadow: 10px 15px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    font-size: larger;
+    color: red;
+}
+
+p {
+    font-size: 50px;
+}
+
+li {
+    list-style-type: none;
+}
+
+button {
+    background-color: cadetblue;
+    border-radius: 15px;
+    height: 50px;
+    width: 100px;
+}
