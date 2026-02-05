@@ -6,6 +6,17 @@
             <li><h2><%= user.username %></h2></li>
             <% }) %>
         </ul>
+        <% if(membership === 'member'){ %>
+            <p>CONGRATULATIONS! YOU ARE A MEMBER!</p>
+        
         <h1>Members List</h1>
+        <ul>
+            <% members.forEach((member) => {%> 
+            <li><h2><%= member.username %></h2></li>
+            <% }) %>
+        </ul>
+        <% } %>
+        <a href="/members">Join the Elite Club!</a>
+        <a href="">LOG OUT</a>
     </body>
 </html>
